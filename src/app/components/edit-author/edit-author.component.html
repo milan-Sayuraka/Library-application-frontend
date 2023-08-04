@@ -1,0 +1,27 @@
+<div class="container">
+  <h2 class="text-center">Edit Author</h2>
+  <div class="card mb-3">
+    <div class="card-body">
+      <form [formGroup]="authorForm" (submit)="onSubmit()">
+        <div class="form-group">
+          <label for="first_name">First Name:</label>
+          <input type="text" id="first_name" formControlName="first_name" class="form-control" [ngClass]="{'is-invalid': isControlInvalid('first_name') && isControlTouched('first_name')}">
+          <div *ngIf="isControlInvalid('first_name') && isControlTouched('first_name')" class="invalid-feedback">
+            First Name is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="last_name">Last Name:</label>
+          <input type="text" id="last_name" formControlName="last_name" class="form-control" [ngClass]="{'is-invalid': isControlInvalid('last_name') && isControlTouched('last_name')}">
+          <div *ngIf="isControlInvalid('last_name') && isControlTouched('last_name')" class="invalid-feedback">
+            Last Name is required.
+          </div>
+        </div>
+        <div class="form-group text-center">
+          <button class="btn btn-primary btn-sm mr-2" (click)="goBack()">Go Back</button>
+          <button type="submit" [disabled]="authorForm.invalid" class="btn btn-success btn-sm">Update Author</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

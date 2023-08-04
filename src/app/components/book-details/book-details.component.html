@@ -1,0 +1,13 @@
+<div class="container">
+    <h2 class="mb-4 text-center">Book Details</h2>
+    <div class="card text-center" >
+        <img src={{image}} class="card-img-top" >
+        <div class="card-body">
+          <h5 class="card-title">Name: {{ book?.name }}</h5>
+          <p class="card-text">ISBN: {{ book?.isbn }}</p>
+          <p class="card-text">Author: {{ author?.first_name }} {{ author?.last_name }}</p>
+          <button class="btn btn-primary btn-sm" (click)="goBack()">Go Back</button>
+        </div>
+      </div>
+</div>
+

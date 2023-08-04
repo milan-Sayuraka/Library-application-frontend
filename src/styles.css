@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+/* src/styles.css */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+/* src/styles.css */
+
+/* Optional: Add some margin and padding to the whole page */
+body {
+    margin: 20px;
+  }
+  
+  /* Center the book list on the page */
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  /* Add some spacing between the cards */
+  .card {
+    margin-bottom: 20px;
+  }
+  
+  /* Style the card footer buttons */
+  .card-footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+.is-invalid {
+  border-color: #dc3545 !important;
+}
+
+.invalid-feedback {
+  display: block;
+  color: #dc3545;
+  margin-top: 5px;
+}

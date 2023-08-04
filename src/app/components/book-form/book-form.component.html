@@ -1,0 +1,36 @@
+<div class="container">
+  <h2 class="text-center">Create New Book</h2>
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="bookForm" (submit)="onSubmit()" class="needs-validation" novalidate>
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" formControlName="name" class="form-control"
+            [ngClass]="{'is-invalid': isControlInvalid('name') && isControlTouched('name')}">
+          <div *ngIf="isControlInvalid('name') && isControlTouched('name')" class="invalid-feedback">
+            Name is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="isbn">ISBN:</label>
+          <input type="text" id="isbn" formControlName="isbn" class="form-control"
+            [ngClass]="{'is-invalid': isControlInvalid('isbn') && isControlTouched('isbn')}">
+          <div *ngIf="isControlInvalid('isbn') && isControlTouched('isbn')" class="invalid-feedback">
+            ISBN is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="author">Author:</label>
+          <select id="author" formControlName="author" class="form-control">
+            <option *ngFor="let author of authors" [value]="author?._id">{{ author.first_name }} {{ author.last_name }}
+            </option>
+          </select>
+          <div *ngIf="isControlInvalid('author') && isControlTouched('author')" class="invalid-feedback">
+            Author ID is required and must be a valid number.
+          </div>
+        </div>
+        <button type="submit" [disabled]="bookForm.invalid" class="btn btn-success btn-sm">Create Book</button>
+      </form>
+    </div>
+  </div>
+</div>
