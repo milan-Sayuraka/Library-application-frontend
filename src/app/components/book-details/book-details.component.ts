@@ -34,9 +34,6 @@ export class BookDetailsComponent implements OnInit {
   getBookDetails(id: string): void {
     this.bookService.getBookById(id).subscribe((data: any) => {
       this.book = data;
-      this.authorService.getAuthorById(data.author).subscribe((author: any) => {
-        this.author = author;
-      });
     });
   }
 

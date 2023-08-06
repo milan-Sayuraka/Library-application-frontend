@@ -73,10 +73,10 @@ export class EditBookComponent implements OnInit {
         _id: this.book._id,
         name: this.book.name,
         isbn: this.book.isbn,
-        author: this.book.author 
+        author: this.book.author._id 
       });
 
-      const selectedAuthor = this.authors.find(author => author._id === this.book.author);
+      const selectedAuthor = this.authors.find(author => author._id === this.book.author._id );
       if (selectedAuthor) {
         this.bookForm.get('author')?.setValue(selectedAuthor._id);
       }

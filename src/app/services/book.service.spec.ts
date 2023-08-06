@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { BookService } from './book.service';
 import { BookModel } from '../models/book.model';
-import { AuthorModel } from '../models/author.model'; // Import AuthorModel
+import { AuthorModel } from '../models/author.model';
 
 describe('BookService', () => {
   let service: BookService;
@@ -21,34 +21,54 @@ describe('BookService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should fetch books', () => {
-    const mockBooks: BookModel[] = [
-      { _id: '1', name: 'Book 1', isbn: '123456', author: {} as AuthorModel }, // Change author to an empty AuthorModel
-      { _id: '2', name: 'Book 2', isbn: '789012', author: {} as AuthorModel }, // Change author to an empty AuthorModel
-    ];
-
-    service.getBooks().subscribe((books) => {
-      expect(books).toEqual(mockBooks);
+  it('should fetch books with pagination', () => {
+    const mockPage = 2;
+    const mockLimit = 10;
+    const mockBooksResponse: any = {
+      totalBooks: 2,
+      currentPage: mockPage,
+      totalPages: 1,
+      books: [
+        {
+          _id: '1',
+          name: 'Book 1',
+          isbn: '123456',
+          author: {},
+        },
+        {
+          _id: '2',
+          name: 'Book 2',
+          isbn: '789012',
+          author: {},
+        },
+      ],
+    };
+  
+    service.getBooks(mockPage, mockLimit).subscribe((response) => {
+      expect(response).toEqual(mockBooksResponse);
     });
-
-    const req = httpMock.expectOne(`${service['BASE_URL']}/books`); // Access private property
+  
+    const req = httpMock.expectOne(`${service['BASE_URL']}/books?page=${mockPage}&limit=${mockLimit}`);
     expect(req.request.method).toBe('GET');
-    req.flush(mockBooks);
+    req.flush(mockBooksResponse);
   });
+  
+  
+  
 
   it('should create a book', () => {
     const mockBook: BookModel = {
       _id: '1',
       name: 'New Book',
       isbn: '987654',
-      author: {} as AuthorModel, // Change author to an empty AuthorModel
+      author: {} as AuthorModel,
     };
 
     service.createBook(mockBook).subscribe((book) => {
       expect(book).toEqual(mockBook);
     });
 
-    const req = httpMock.expectOne(`${service['BASE_URL']}/books`); // Access private property
+    const req = httpMock.expectOne(`${service['BASE_URL']}/books`);
     expect(req.request.method).toBe('POST');
     req.flush(mockBook);
   });
@@ -58,14 +78,14 @@ describe('BookService', () => {
       _id: '1',
       name: 'Updated Book',
       isbn: '987654',
-      author: {} as AuthorModel, // Change author to an empty AuthorModel
+      author: {} as AuthorModel, 
     };
 
     service.updateBook(mockBook).subscribe((book) => {
       expect(book).toEqual(mockBook);
     });
 
-    const req = httpMock.expectOne(`${service['BASE_URL']}/books/${mockBook._id}`); // Access private property
+    const req = httpMock.expectOne(`${service['BASE_URL']}/books/${mockBook._id}`); 
     expect(req.request.method).toBe('PUT');
     req.flush(mockBook);
   });
@@ -73,11 +93,11 @@ describe('BookService', () => {
   it('should delete a book', () => {
     const bookId = '1';
 
-    service.deleteBook(+bookId).subscribe(() => { // Convert bookId to a number
+    service.deleteBook(+bookId).subscribe(() => { 
       expect().nothing();
     });
 
-    const req = httpMock.expectOne(`${service['BASE_URL']}/books/${bookId}`); // Access private property
+    const req = httpMock.expectOne(`${service['BASE_URL']}/books/${bookId}`); 
     expect(req.request.method).toBe('DELETE');
     req.flush(null);
   });

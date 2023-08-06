@@ -6,3 +6,10 @@ export interface BookModel {
     isbn: string;
     author: AuthorModel;
 }
+
+export interface PaginatedBooks {
+    totalBooks: number;
+    currentPage: number;
+    totalPages: number;
+    books: BookModel[];
+}

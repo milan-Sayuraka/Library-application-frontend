@@ -41,7 +41,6 @@ describe('EditBookComponent', () => {
     component = fixture.componentInstance;
     mockBookService = TestBed.inject(BookService) as jasmine.SpyObj<BookService>;
 
-    // Create a mock author to use in the mock book
     const mockAuthor = { _id: '1515151', first_name: 'John', last_name: 'Doe' };
 
     const mockBook: BookModel = {
@@ -61,5 +60,4 @@ describe('EditBookComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // Add more tests here
 });

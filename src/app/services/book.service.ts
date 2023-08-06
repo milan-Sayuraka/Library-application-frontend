@@ -15,8 +15,13 @@ export class BookService {
 
   constructor(private http: HttpClient) { }
 
-  getBooks(): Observable<BookModel[]> {
-    return this.http.get<BookModel[]>(`${this.BASE_URL}/books`).pipe(
+  getBooks(page?: number, limit?: number): Observable<BookModel[]> {
+    let url = `${this.BASE_URL}/books`;
+    if (page && limit) {
+      url += `?page=${page}&limit=${limit}`;
+    }
+
+    return this.http.get<BookModel[]>(url).pipe(
       catchError(this.handleError)
     );
   }

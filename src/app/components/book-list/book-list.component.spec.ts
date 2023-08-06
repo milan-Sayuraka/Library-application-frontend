@@ -42,15 +42,41 @@ describe('BookListComponent', () => {
   });
 
   it('should fetch and display books', () => {
-    const mockBooks = [
-      { _id: '1', name: 'Book 1', isbn: '123456', author: '1' },
-      { _id: '2', name: 'Book 2', isbn: '789012', author: '1' },
-    ];
-    mockBookService.getBooks = jasmine.createSpy().and.returnValue(of(mockBooks));
+    const mockResponse = {
+      totalBooks: 3,
+      currentPage: 1,
+      totalPages: 1,
+      books: [
+        {
+          _id: '1',
+          name: 'Book 1',
+          isbn: '123456',
+          author: {
+            _id: 'author1',
+            first_name: 'Author First',
+            last_name: 'Author Last'
+          }
+        },
+        {
+          _id: '2',
+          name: 'Book 2',
+          isbn: '789012',
+          author: {
+            _id: 'author2',
+            first_name: 'Another First',
+            last_name: 'Another Last'
+          }
+        }
+      ]
+    };
+    mockBookService.getBooks = jasmine.createSpy().and.returnValue(of(mockResponse));
     component.ngOnInit();
     fixture.detectChanges();
-    expect(component.books).toEqual(mockBooks);
+    expect(component.books).toEqual(mockResponse.books);
+    expect(component.currentPage).toEqual(mockResponse.currentPage);
+    expect(component.totalPages).toEqual(mockResponse.totalPages);
   });
+  
 
   it('should delete a book', () => {
     spyOn(window, 'confirm').and.returnValue(true);
